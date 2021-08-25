@@ -1,4 +1,6 @@
 let crosses = true;
+const naught = `<img src="imgs/donut.jpg alt="O">`;
+const cross = `<img src="imgs/cross.jpg alt="X>`;
 const squares = [...document.querySelectorAll('.board-square')];
 
 squares.forEach(square => {
@@ -59,7 +61,7 @@ function checkLines(line) {
 function handleClick(e) {
     if (Gb.board[e.target.id - 1] == 'm') { // if square is empty, add naught or cross
         crosses ? Gb.board[e.target.id - 1] = 1 : Gb.board[e.target.id - 1] = 0;
-        crosses ? e.target.innerHTML += 'X' : e.target.innerHTML += 'O';
+        crosses ? e.target.innerHTML += cross : e.target.innerHTML += naught;
         crosses = !crosses;
         console.log('zero');
     }
