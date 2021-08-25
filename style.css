@@ -37,3 +37,7 @@ body {
 .board-square:hover {
   background-color: rgb(4, 168, 168);
 }
+
+.winner {
+  background-color: rgb(89, 255, 47);
+}
