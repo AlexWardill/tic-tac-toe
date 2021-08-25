@@ -1,6 +1,10 @@
 let crosses = true;
 const squares = [...document.querySelectorAll('.board-square')];
 
+squares.forEach(square => {
+    square.addEventListener('click', handleClick)
+    });
+
 const Gb = (function() {
     return {
             lines : {
@@ -15,13 +19,14 @@ const Gb = (function() {
             },
 
         board : [
-            '','','',
-            '','','',
-            '','',''
+            'm','m','m',
+            'm','m','m',
+            'm','m','m'
         ],
         getLine(line) {
             return Gb.lines[line];
-        }
+        },
+        winner : false
     
     }
 })();
@@ -34,30 +39,37 @@ function checkLines(line) {
     let lineToCheck = line.map(index => Gb.board[index-1]).toString();
     if (lineToCheck == cwin || lineToCheck == nwin) {
        console.log('We Have A Winner!');
-       console.log(line.map(index => Gb.board[index-1]));
-       line.map(index => document.getElementById(`${index.toString()}`).classList.add('winner'));
-    } //
-    
+       Gb.winner = true;
+       //console.log(line.map(index => Gb.board[index-1]));
+       line.map(index => {
+           document.getElementById(`${index.toString()}`).classList.add('winner')
+           squares.forEach(square => square.classList.remove('hover'));
+           squares.forEach(
+               square => square.removeEventListener('click', handleClick));
+        });
+    } if (!Gb.board.includes('m') && !Gb.winner){
+        console.log(`It's a draw`);
+    } 
 }
 
 
-squares.forEach(square => {
-    square.addEventListener('click', (e) => {
-        // crosses ? Gb[`sq${e.target.id}`] = 'cross' : Gb[`sq${e.target.id}`] ='naught'; 
-        if (Gb.board[e.target.id - 1] == '') {
-            crosses ? Gb.board[e.target.id - 1] = 1 : Gb.board[e.target.id - 1] = 0;
-        }
-        console.log(Gb.board);
-
-        // Every click, check all the lines
-        // CheckLines sees if any 3 in a row
-        Object.values(Gb.lines)
-            .forEach(line => checkLines(line));
 
 
 
+function handleClick(e) {
+    if (Gb.board[e.target.id - 1] == 'm') { // if square is empty, add naught or cross
+        crosses ? Gb.board[e.target.id - 1] = 1 : Gb.board[e.target.id - 1] = 0;
+        crosses ? e.target.innerHTML += 'X' : e.target.innerHTML += 'O';
         crosses = !crosses;
-    })
-})
+        console.log('zero');
+    }
+
+    console.log(Gb.board);
+
+    // Every click, check all the lines
+    // CheckLines sees if any 3 in a row
+    Object.values(Gb.lines).forEach(line => checkLines(line));
+
+}
 
 
