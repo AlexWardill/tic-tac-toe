@@ -1,6 +1,8 @@
 let crosses = true;
-const naught = `<img src="imgs/donut.jpg alt="O">`;
-const cross = `<img src="imgs/cross.jpg alt="X>`;
+// const naught = `<img src="imgs/donut.jpg alt="O">`;
+// const cross = `<img src="imgs/cross.jpg alt="X>`;
+const naught = 'O';
+const cross = 'X';
 const squares = [...document.querySelectorAll('.board-square')];
 
 squares.forEach(square => {
@@ -38,12 +40,12 @@ function checkLines(line) {
     const cwin = [1,1,1].toString();
     const nwin = [0,0,0].toString();
     console.log('lines checked');
+    // check for winning line
     let lineToCheck = line.map(index => Gb.board[index-1]).toString();
     if (lineToCheck == cwin || lineToCheck == nwin) {
        console.log('We Have A Winner!');
        Gb.winner = true;
-       //console.log(line.map(index => Gb.board[index-1]));
-       line.map(index => {
+       line.map(index => { // apply winning styling
            document.getElementById(`${index.toString()}`).classList.add('winner')
            squares.forEach(square => square.classList.remove('hover'));
            squares.forEach(

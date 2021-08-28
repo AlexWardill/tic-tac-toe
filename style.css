@@ -45,3 +45,23 @@ body {
 .winner {
   background-color: rgb(89, 255, 47);
 }
+
+.cross{
+  height: 100px;
+  width: 100px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.cross:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: "\d7"; 
+  font-size: 50px; 
+  color: blue;
+  line-height: 100px;
+  text-align: center;
+}
